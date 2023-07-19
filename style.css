@@ -4,6 +4,10 @@
     margin-left:35%;
     margin-right: 35%;
     margin-top: 10%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgba(65,65,65, 0.4);
 }
 #otherContainer {
     display: flex;
@@ -12,6 +16,17 @@
 #resultBox {
     display: flex;
     flex-flow: column;
+    height: 80px;
+    background-color: #f0f0f0;
+    margin: 4px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+#currentOperation {
+
+}
+#finalDisplay {
+
 }
 .operatorsContainer {
     display: grid;
