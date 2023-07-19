@@ -1,0 +1,29 @@
+#container {
+    display: flex;
+    flex-flow: column;
+    margin-left:35%;
+    margin-right: 35%;
+    margin-top: 10%;
+}
+#otherContainer {
+    display: flex;
+    flex-flow: column;
+}
+#resultBox {
+    display: flex;
+    flex-flow: column;
+}
+.operatorsContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: 0;
+}
+.button {
+    padding: 0;
+    margin: 4px;
+    border: 1px solid black;
+    border-radius: 3px;
+    font-size: 1.5em;
+    height: 45px;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="author" content="kritika">
+        <meta name="description" content="calculator">
+        <meta charset="UTF-8">
+        <title>Calculator</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="image.png" type="image/x-icon">
+    </head>
+    <body>
+        <!--Can be flexbox or block, i dont think matters much, either way column-->
+        <div id="container">
+            <!--otherContainer can be flexBox, both inside divs column-->
+            <div id="otherContainer">
+                <!--resultBox div will be its own flexbox or block-->
+                <div id="resultBox">
+                    <!--This is superscript type, so a little smaller in size-->
+                    <div id="currentOperation">2x2</div>
+                    <div id="finalDisplay">0</div>
+                </div>
+                <!--This button would have different design-->
+                <button class="button" id="clear">CLEAR</button>
+            </div>
+            <!--GRID 4X4 or Flex doesn't matter-->
+            <div class="operatorsContainer">
+                <button class="button" id="7">7</button>
+                <button class="button" id="8">8</button>
+                <button class="button" id="9">9</button>
+                <button class="button" id="divide">/</button>
+
+                <button class="button" id="4">4</button>
+                <button class="button" id="5">5</button>
+                <button class="button" id="6">6</button>
+                <button class="button" id="multiply">*</button>
+                
+                <button class="button" id="1">1</button>
+                <button class="button" id="2">2</button>
+                <button class="button" id="3">3</button>
+                <button class="button" id="add">-</button>
+
+                <button class="button" id="dot">.</button>
+                <button class="button" id="0">0</button>
+                <button class="button" id="equalsKey">=</button>
+                <button class="button" id="subtract">+</button>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
