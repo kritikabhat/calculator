@@ -6,6 +6,7 @@ img {
     border: 1px solid black;
     width: 55px;
     height: 25px;
+    margin-right: 3px;
 }
 #legend {
     margin-left: 5%;

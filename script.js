@@ -32,7 +32,7 @@ const operationsMethod = () => {
         operation.addEventListener('click', () => {
             if (sign) return
             sign = operation.textContent
-            currentDisplay.textContent += operation.textContent
+            currentDisplay.textContent += " " + operation.textContent + " "
         })
     })
 }
