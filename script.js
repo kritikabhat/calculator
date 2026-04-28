@@ -1,87 +1,114 @@
-const equalsKey = document.getElementById("equalsKey")
-const clear = document.getElementById("clear")
-const currentDisplay = document.getElementById("currentDisplay")
-const finalDisplay = document.getElementById("finalDisplay")
-const digits = document.querySelectorAll('.digits')
-const operations = document.querySelectorAll('.operation')
-const signChange = document.getElementById('signChange')
+const operatorsContainer = document.querySelector('.operatorsContainer')
+const otherContainer = document.querySelector('#otherContainer')
 
-let nums1, nums2, sign, currentSign = "+"
+let operand1 = ''
+let operand2 = ''
+let operator = ''
+let result = ''
+let currentSign = '+'
 
-const calculator = () => {
-    digitsMethod()
-    operationsMethod()
-    signChangeMethod()
-    clearMethod()
-    equalsKeyMethod()
-}
-const digitsMethod = () => {
-    digits.forEach(digit => {
-        digit.addEventListener('click', () => {
-            currentDisplay.textContent += digit.textContent
-            if (!sign || sign === null) {
-                nums1 = (!nums1) ? digit.textContent : (nums1+digit.textContent)
-            } else {
-                nums2 = (!nums2) ? digit.textContent : (nums2+digit.textContent)
-            }
-        })
-    })
-}
-const operationsMethod = () => {
-    operations.forEach(operation => { // Except for equalsKey
-        operation.addEventListener('click', () => {
-            if (sign) return
-            sign = operation.textContent
-            currentDisplay.textContent += " " + operation.textContent + " "
-        })
-    })
-}
-const signChangeMethod = () => {
-    signChange.addEventListener('click', () => {
-        if (currentSign === "+") {
-            if (!nums1) {
-                currentDisplay.textContent = "-"
-                nums1 = "-"
-            } else if (nums1 && !sign) {
-                nums1 = "-" + nums1
-                currentDisplay.textContent = nums1
-            }
-            if (sign && !nums2) {
-                currentDisplay.textContent += "-"
-                nums2 = "-"
-            } 
-            currentSign = "-"
+operatorsContainer.addEventListener('click', (e) => {
+    // avoids bug if container is clicked accidentally
+    if (!e.target.matches('button')) return
+
+    if (e.target.matches('#equalsKey')) {
+        if (operand1 && operand2 && operator) {
+            result = calculate(operand1, operand2, operator)
+            otherContainer.querySelector('#finalDisplay').textContent = result
+
+            // This allows additional arithematic using the first result value
+            operand1 = result
+            operand2 = ''
+            operator = ''
+            currentSign = (+result > 0) ? '+' : '-'
         }
-        if (currentSign === "-" && sign && nums1) {
-            if (!nums2) {
-                currentDisplay.textContent += "-"
-                nums2 = "-"
-            }
+    } else if (e.target.matches('.operation') && !operator) { // +, -, x, /
+        if (!result) {
+            operator = e.target.textContent
+            otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
+        } else {
+            operator = e.target.textContent
+            otherContainer.querySelector('#currentDisplay').textContent = `${result}${e.target.textContent}`
+            otherContainer.querySelector('#finalDisplay').textContent = 0
         }
-    })
-}
-const clearMethod = () => {
-    clear.addEventListener('click', () => {
-        currentDisplay.textContent = ""
-        finalDisplay.textContent = 0.0
-        nums1 = 0
-        nums2 = 0
-        sign = null
-        currentSign = "+"
-    })
-}
-const equalsKeyMethod = () => {
-    equalsKey.addEventListener('click', () => {
-        let result
-        if (!nums1 || !nums2) return
+    } else { // [0-9], . 
+        if (!operator) {
+            operand1 += e.target.textContent
+            otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
+        } else {
+            operand2 += e.target.textContent
+            otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
+        }
+    }
+})
 
-        if(sign === "+") result = +nums1 + +nums2
-        if (sign === "-") result = +nums1 - +nums2
-        if (sign === "/") result = +nums1 / +nums2
-        if (sign === "x") result = +nums1 * +nums2
+otherContainer.addEventListener('click', (e) => {
+    if (e.target.textContent === "CLEAR") {
+        otherContainer.querySelector('#currentDisplay').textContent = ''
+        otherContainer.querySelector('#finalDisplay').textContent = '0'
+        operand1 = ''
+        operand2 = ''
+        result = ''
+        operator = ''
+    }
 
-        finalDisplay.textContent = result
-    })
+    if (e.target.textContent === "Neg") {
+        if (!result) { // first arithematic operation
+            if (currentSign === "+") {
+                if (!operand1) {
+                    operand1 = "-" 
+                    otherContainer.querySelector('#currentDisplay').textContent = operand1  
+                } else if (operand1 && !operator) {
+                    operand1 = "-" + operand1
+                    otherContainer.querySelector('#currentDisplay').textContent = operand1
+                }
+                currentSign = "-"
+            }
+        } else { // "result" is used to allow additional arithematic
+            if (currentSign === "+") {
+                if (!operator) {
+                    result = "-" + result
+                    operand1 = result
+                    otherContainer.querySelector('#currentDisplay').textContent = result
+                    otherContainer.querySelector('#finalDisplay').textContent = result
+                }
+            }
+            if (currentSign === "-") { // changes result sign to positive during additional arithematic
+                if(!operator) {
+                    result = result.toString().slice(1)
+                    operand1 = result
+                    otherContainer.querySelector('#currentDisplay').textContent = result
+                    otherContainer.querySelector('#finalDisplay').textContent = result
+                }
+
+            }
+        }  
+        if (operator && !operand2) { // this allows operand2 to be negative
+            operand2 = "-"
+            otherContainer.querySelector('#currentDisplay').textContent += "-"
+        } 
+    }
+})
+
+function calculate (operand1, operand2, operator) {
+    switch(operator) {
+        case '+' : {
+            return (+operand1 + +operand2);
+            break;
+        }
+        case '-' : {
+            return (+operand1 - +operand2);
+            break;
+        }
+        case 'x' : {
+            return (+operand1 * +operand2);
+            break;
+        }
+        case '/' : {
+            return (+operand1 / +operand2);
+            break;
+        }
+        default: console.log("Unknown operation! Try again");
+    }
 }
 
-calculator()
