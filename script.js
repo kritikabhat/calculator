@@ -32,18 +32,24 @@ let result = ''
 
 // The numbers, operand are shown on the Current Display now
 operatorsContainer.addEventListener('click', (e) => {
-    // equals should work differently
     if (e.target.matches('#equalsKey')) {
         console.log("Equals key")
-        // likely the calc method will be called here
         if (operand1 && operand2 && operator) {
-            calculate(operand1, operand2, operator)
+            result = calculate(operand1, operand2, operator)
+            otherContainer.querySelector('#finalDisplay').textContent = result
+
+            // Once the calculation is complete, you want to reset the values
+            // Unless the clear button is pressed, you continue so
+            operand1 = result
+            operand2 = ''
+            operator = ''
+            result = ''
+            console.log("operand1: " + operand1)
+            console.log("operator: " + operator)
+            console.log("operand2: " + operand2)
+            console.log("result: " + result)
         }
 
-        operand1 = result
-        operand2 = ''
-        result = ''
-        operator = ''
     } else if (e.target.matches('.operation') && !operator) { // +, -, x, /
         operator = e.target.textContent
         otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
@@ -56,9 +62,9 @@ operatorsContainer.addEventListener('click', (e) => {
             otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
         }
     }
-    console.log("operand1: " + operand1)
-    console.log("operator: " + operator)
-    console.log("operand2: " + operand2)
+    // console.log("operand1: " + operand1)
+    // console.log("operator: " + operator)
+    // console.log("operand2: " + operand2)
 })
 
 
@@ -92,39 +98,22 @@ otherContainer.addEventListener('click', (e) => {
     }
 })
 
-// You don't need named functions for this calc, can put func exp in the switch case
-function add(a, b) {
-    return a + b
-}
-
-function subtract(a, b) {
-    return a - b
-}
-
-function multiply(a, b) {
-    return a * b
-}
-
-function divide(a, b) {
-    return a / b
-}
-
 function calculate (operand1, operand2, operator) {
     switch(operator) {
         case '+' : {
-            add(operand1, operand2);
+            return (+operand1 + +operand2);
             break;
         }
         case '-' : {
-            subtract(operand1, operand2);
+            return (+operand1 - +operand2);
             break;
         }
         case 'x' : {
-            multiply(operand1, operand2);
+            return (+operand1 * +operand2);
             break;
         }
         case '/' : {
-            divide(operand1, operand2);
+            return (+operand1 / +operand2);
             break;
         }
         default: console.log("Unknown operation! Try again");
