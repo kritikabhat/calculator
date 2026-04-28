@@ -30,10 +30,8 @@ let operand2 = ''
 let operator = ''
 let result = ''
 
-// The numbers, operand are shown on the Current Display now
 operatorsContainer.addEventListener('click', (e) => {
     if (e.target.matches('#equalsKey')) {
-        console.log("Equals key")
         if (operand1 && operand2 && operator) {
             result = calculate(operand1, operand2, operator)
             otherContainer.querySelector('#finalDisplay').textContent = result
@@ -43,16 +41,17 @@ operatorsContainer.addEventListener('click', (e) => {
             operand1 = result
             operand2 = ''
             operator = ''
-            result = ''
-            console.log("operand1: " + operand1)
-            console.log("operator: " + operator)
-            console.log("operand2: " + operand2)
-            console.log("result: " + result)
         }
 
     } else if (e.target.matches('.operation') && !operator) { // +, -, x, /
-        operator = e.target.textContent
-        otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
+        if (!result) {
+            operator = e.target.textContent
+            otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
+        } else {
+            operator = e.target.textContent
+            otherContainer.querySelector('#currentDisplay').textContent = `${result}${e.target.textContent}`
+            otherContainer.querySelector('#finalDisplay').textContent = 0
+        }
     } else { // [0-9], . 
         if (!operator) {
             operand1 += e.target.textContent
@@ -62,15 +61,11 @@ operatorsContainer.addEventListener('click', (e) => {
             otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
         }
     }
-    // console.log("operand1: " + operand1)
-    // console.log("operator: " + operator)
-    // console.log("operand2: " + operand2)
 })
 
 
 
 /**
- * First operator- always allowed
  * Two operators together- not allowed: write a check for this
  * if there are two numbers and an operator between them,
  *      instead of disabling operators, when another operator is pressed
