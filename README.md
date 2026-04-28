@@ -4,7 +4,7 @@ Welcome to Calculator 2.0!!!
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
-The calculator can now do progressive/additional arithmatic.
+The calculator can now do progressive/additional arithmatic:
 ```
 Earlier, you could only do 3 + 4 = 7
 Now, you can do:
@@ -18,10 +18,25 @@ and so on..
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
+You can also use negative numbers with this:
 
+<img src="images/negativeNumbers.gif" width=80%>
 
-The section below describes Calculator 1.0
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
+
+Other changes:
+* Clean code, more readable
+* HTML file was updated to remove redundancy but the UI layout was not changed
+* The displays mimic real-life calculators more closely
+* Fixed the bug below that occured when non-button areas of event listener were accidentally clicked:
+
+<img src="images/bug.png" width=80%>
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
+
+## The section below describes Calculator 1.0
 
 ## Overview:
 

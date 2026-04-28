@@ -8,6 +8,9 @@ let result = ''
 let currentSign = '+'
 
 operatorsContainer.addEventListener('click', (e) => {
+    // avoids bug if container is clicked accidentally
+    if (!e.target.matches('button')) return
+
     if (e.target.matches('#equalsKey')) {
         if (operand1 && operand2 && operator) {
             result = calculate(operand1, operand2, operator)
