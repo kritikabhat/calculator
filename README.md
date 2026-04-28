@@ -1,5 +1,26 @@
-## Calculator
-This project creates a calculator.
+## Calculator 2.0
+
+Welcome to Calculator 2.0!!!
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
+
+The calculator can now do progressive/additional arithmatic.
+```
+Earlier, you could only do 3 + 4 = 7
+Now, you can do:
+ 3 + 4 = 7
+        * 4 (do arithematic on previous result)
+       = 21
+
+and so on..
+```
+<img src="images/progressiveArithematic.gif" width=80%>
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
+
+
+
+The section below describes Calculator 1.0
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
 
 ## Overview:

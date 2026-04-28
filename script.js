@@ -1,11 +1,6 @@
-/**
- * Update the ID, class names on the html tags. There are many redundant names there
- */
-
 const operatorsContainer = document.querySelector('.operatorsContainer')
 const otherContainer = document.querySelector('#otherContainer')
 
-const operations = ['+', '-', '/', 'x']
 let operand1 = ''
 let operand2 = ''
 let operator = ''
@@ -23,8 +18,6 @@ operatorsContainer.addEventListener('click', (e) => {
             operand2 = ''
             operator = ''
             currentSign = (+result > 0) ? '+' : '-'
-            console.log("result now: " + result)
-            console.log("Current sign: " + currentSign)
         }
     } else if (e.target.matches('.operation') && !operator) { // +, -, x, /
         if (!result) {
@@ -60,15 +53,15 @@ otherContainer.addEventListener('click', (e) => {
         if (!result) { // first arithematic operation
             if (currentSign === "+") {
                 if (!operand1) {
-                    operand1 = "-"   
+                    operand1 = "-" 
+                    otherContainer.querySelector('#currentDisplay').textContent = operand1  
                 } else if (operand1 && !operator) {
                     operand1 = "-" + operand1
+                    otherContainer.querySelector('#currentDisplay').textContent = operand1
                 }
-                otherContainer.querySelector('#currentDisplay').textContent = operand1
                 currentSign = "-"
             }
         } else { // "result" is used to allow additional arithematic
-            console.log("result so")
             if (currentSign === "+") {
                 if (!operator) {
                     result = "-" + result
