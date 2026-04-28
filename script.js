@@ -1,87 +1,83 @@
-const equalsKey = document.getElementById("equalsKey")
-const clear = document.getElementById("clear")
-const currentDisplay = document.getElementById("currentDisplay")
-const finalDisplay = document.getElementById("finalDisplay")
-const digits = document.querySelectorAll('.digits')
-const operations = document.querySelectorAll('.operation')
-const signChange = document.getElementById('signChange')
+/**
+ * Goals: Currently, the currentDisplay only allows a * b operation.
+ * Then all bts are disabled. Change this so complex things can be done?
+ * Ignore the bracket need. Just go by DMAS
+ * 
+ * The FinalDisplay also doesn't allow you to use it's value as a starting point
+ * Allow that
+ * 
+ * Update the ID, class names on the html tags
+ * There are many redundant names there
+ * subtract button currently has a id which seems to be unused. look into that
+ */
 
-let nums1, nums2, sign, currentSign = "+"
+/**
+ * container has otherContainer and operatorsContainer
+ * otherContainer has resultBox (which has currentDisplay and FinalDisplay)
+ * 
+ * currentDisplay shows like 7 x 8
+ * finalDisplay has 56
+ * 
+ * clearSignContainer has a clear btn and a sign btn
+ */
 
-const calculator = () => {
-    digitsMethod()
-    operationsMethod()
-    signChangeMethod()
-    clearMethod()
-    equalsKeyMethod()
+const operatorsContainer = document.querySelector('.operatorsContainer')
+const otherContainer = document.querySelector('#otherContainer')
+
+// The numbers, operand are shown on the Current Display now
+operatorsContainer.addEventListener('click', (e) => {
+    otherContainer.querySelector('#currentDisplay').textContent += `${e.target.textContent}`
+})
+
+otherContainer.addEventListener('click', (e) => {
+    if (e.target.textContent === "CLEAR") {
+        otherContainer.querySelector('#currentDisplay').textContent = ''
+        otherContainer.querySelector('#finalDisplay').textContent = '0'
+    }
+        
+
+})
+
+let operand1
+let operand2
+let operator
+
+// You don't need named functions for this calc, can put func exp in the switch case
+function add(a, b) {
+    return a + b
 }
-const digitsMethod = () => {
-    digits.forEach(digit => {
-        digit.addEventListener('click', () => {
-            currentDisplay.textContent += digit.textContent
-            if (!sign || sign === null) {
-                nums1 = (!nums1) ? digit.textContent : (nums1+digit.textContent)
-            } else {
-                nums2 = (!nums2) ? digit.textContent : (nums2+digit.textContent)
-            }
-        })
-    })
+
+function subtract(a, b) {
+    return a - b
 }
-const operationsMethod = () => {
-    operations.forEach(operation => { // Except for equalsKey
-        operation.addEventListener('click', () => {
-            if (sign) return
-            sign = operation.textContent
-            currentDisplay.textContent += " " + operation.textContent + " "
-        })
-    })
+
+function multiply(a, b) {
+    return a * b
 }
-const signChangeMethod = () => {
-    signChange.addEventListener('click', () => {
-        if (currentSign === "+") {
-            if (!nums1) {
-                currentDisplay.textContent = "-"
-                nums1 = "-"
-            } else if (nums1 && !sign) {
-                nums1 = "-" + nums1
-                currentDisplay.textContent = nums1
-            }
-            if (sign && !nums2) {
-                currentDisplay.textContent += "-"
-                nums2 = "-"
-            } 
-            currentSign = "-"
+
+function divide(a, b) {
+    return a / b
+}
+
+function operate (operand1, operand2, operator) {
+    switch(operator) {
+        case '+' : {
+            add(operand1, operand2);
+            break;
         }
-        if (currentSign === "-" && sign && nums1) {
-            if (!nums2) {
-                currentDisplay.textContent += "-"
-                nums2 = "-"
-            }
+        case '-' : {
+            subtract(operand1, operand2);
+            break;
         }
-    })
-}
-const clearMethod = () => {
-    clear.addEventListener('click', () => {
-        currentDisplay.textContent = ""
-        finalDisplay.textContent = 0.0
-        nums1 = 0
-        nums2 = 0
-        sign = null
-        currentSign = "+"
-    })
-}
-const equalsKeyMethod = () => {
-    equalsKey.addEventListener('click', () => {
-        let result
-        if (!nums1 || !nums2) return
-
-        if(sign === "+") result = +nums1 + +nums2
-        if (sign === "-") result = +nums1 - +nums2
-        if (sign === "/") result = +nums1 / +nums2
-        if (sign === "x") result = +nums1 * +nums2
-
-        finalDisplay.textContent = result
-    })
+        case 'x' : {
+            multiply(operand1, operand2);
+            break;
+        }
+        case '/' : {
+            divide(operand1, operand2);
+            break;
+        }
+        default: console.log("Unknown operation! Try again");
+    }
 }
 
-calculator()
